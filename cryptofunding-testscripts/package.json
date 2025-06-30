@@ -1,0 +1,25 @@
+{
+  "name": "cryptofunding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "node index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malawarecreator/cryptofunding.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/malawarecreator/cryptofunding/issues"
+  },
+  "homepage": "https://github.com/malawarecreator/cryptofunding#readme",
+  "dependencies": {
+    "dotenv": "^17.0.0",
+    "viem": "^2.31.6"
+  }
+}

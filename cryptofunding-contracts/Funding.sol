@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >=0.8.0;
+pragma solidity 0.8.30;
 pragma experimental ABIEncoderV2;
 
 contract Funding {
@@ -22,9 +22,22 @@ contract Funding {
 
     Fundraiser[] public fundraisers;
 
-    event FundraiserCreated(address indexed creator, string creatorFullName, string title, uint256 goal);
-    event Donated(address indexed donator, uint256 indexed fundraiserIndex, uint256 amount);
-    event Withdrawn(address indexed creator, uint256 indexed fundraiserIndex, uint256 amount);
+    event FundraiserCreated(
+        address indexed creator,
+        string creatorFullName,
+        string title,
+        uint256 goal
+    );
+    event Donated(
+        address indexed donator,
+        uint256 indexed fundraiserIndex,
+        uint256 amount
+    );
+    event Withdrawn(
+        address indexed creator,
+        uint256 indexed fundraiserIndex,
+        uint256 amount
+    );
 
     function createFundraiser(
         string memory title,
@@ -99,9 +112,16 @@ contract Funding {
         emit Donated(msg.sender, indexOfFundraiser, msg.value);
     }
 
+    function getDonators(
+        uint256 fundraiserIndex
+    ) public view returns (Donator[] memory) {
+        return fundraisers[fundraiserIndex].donators;
+    }
+
     function getFundraisersLength() public view returns (uint) {
         return fundraisers.length;
     }
+
     bool private locked;
 
     modifier noReentrant() {
