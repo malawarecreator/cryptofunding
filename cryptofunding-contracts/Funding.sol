@@ -20,7 +20,11 @@ contract Funding {
         uint256 amountGiven;
     }
 
-    Fundraiser[] private fundraisers;
+    Fundraiser[] public fundraisers;
+
+    event FundraiserCreated(address indexed creator, string creatorFullName, string title, uint256 goal);
+    event Donated(address indexed donator, uint256 indexed fundraiserIndex, uint256 amount);
+    event Withdrawn(address indexed creator, uint256 indexed fundraiserIndex, uint256 amount);
 
     function createFundraiser(
         string memory title,
@@ -40,6 +44,7 @@ contract Funding {
                 totalDonated: 0
             })
         );
+        emit FundraiserCreated(msg.sender, creatorFullname, title, goal);
     }
 
     function getFundraiser(
@@ -59,7 +64,6 @@ contract Funding {
     }
 
     function donate(
-        address donator,
         string memory donatorFullName,
         uint32 indexOfFundraiser
     ) external payable {
@@ -70,7 +74,7 @@ contract Funding {
         bool found = false;
         uint index = 0;
         for (uint i = 0; i < fundraiser.donators.length; i++) {
-            if (fundraiser.donators[i].donator == donator) {
+            if (fundraiser.donators[i].donator == msg.sender) {
                 found = true;
                 index = i;
                 break;
@@ -82,7 +86,7 @@ contract Funding {
         } else {
             fundraiser.donators.push(
                 Donator({
-                    donator: donator,
+                    donator: msg.sender,
                     donatorFullName: donatorFullName,
                     amountGiven: msg.value
                 })
@@ -92,9 +96,19 @@ contract Funding {
         if (fundraiser.totalDonated >= fundraiser.goal) {
             fundraiser.fulfilled = true;
         }
+        emit Donated(msg.sender, indexOfFundraiser, msg.value);
     }
 
-    function withdraw(uint256 indexOfFundraiser) public {
+    bool private locked;
+
+    modifier noReentrant() {
+        require(!locked, "ReentrancyGuard: reentrant call");
+        locked = true;
+        _;
+        locked = false;
+    }
+
+    function withdraw(uint256 indexOfFundraiser) public noReentrant {
         require(indexOfFundraiser < fundraisers.length, "Index out of range");
         Fundraiser storage fundraiser = fundraisers[indexOfFundraiser];
         require(msg.sender == fundraiser.creator, "Only creator can withdraw");
@@ -105,6 +119,8 @@ contract Funding {
         fundraiser.totalDonated = 0;
         (bool sent, ) = fundraiser.creator.call{value: amount}("");
         require(sent, "Failed to send Ether");
+        emit Withdrawn(fundraiser.creator, indexOfFundraiser, amount);
     }
 
+    receive() external payable {}
 }
