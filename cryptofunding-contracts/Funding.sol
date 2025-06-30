@@ -99,6 +99,9 @@ contract Funding {
         emit Donated(msg.sender, indexOfFundraiser, msg.value);
     }
 
+    function getFundraisersLength() public view returns (uint) {
+        return fundraisers.length;
+    }
     bool private locked;
 
     modifier noReentrant() {
