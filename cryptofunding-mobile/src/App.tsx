@@ -39,7 +39,7 @@ import Create from './pages/Create';
 setupIonicReact();
 
 const App: React.FC = () => (
-  <IonApp>
+  <IonApp style={{ background: 'var(--app-background)', minHeight: '100vh' }}>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
