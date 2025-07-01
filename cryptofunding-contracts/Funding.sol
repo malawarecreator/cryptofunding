@@ -142,6 +142,7 @@ contract Funding {
         fundraiser.totalDonated = 0;
         (bool sent, ) = fundraiser.creator.call{value: amount}("");
         require(sent, "Failed to send Ether");
+        delete fundraisers[indexOfFundraiser];
         emit Withdrawn(fundraiser.creator, indexOfFundraiser, amount);
     }
 
