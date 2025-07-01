@@ -1,0 +1,36 @@
+.fundraiser-card {
+  background: #1a2233;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  padding: 24px 32px;
+  margin: 24px auto;
+  max-width: 420px;
+  color: #e0f7fa;
+  border: 1.5px solid #00bcd4;
+  transition: box-shadow 0.2s;
+}
+
+.fundraiser-card:hover {
+  box-shadow: 0 8px 32px rgba(0,188,212,0.18);
+  border-color: #26c6da;
+}
+
+.fundraiser-card h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #00e5ff;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.fundraiser-card p {
+  margin: 6px 0;
+  font-size: 1.05rem;
+  color: #b2ebf2;
+}
+
+.fundraiser-card .creator-address {
+  font-size: 0.95rem;
+  color: #80deea;
+  word-break: break-all;
+}

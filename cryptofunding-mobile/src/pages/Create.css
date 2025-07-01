@@ -1,0 +1,58 @@
+.create-content {
+  max-width: 420px;
+  margin: 32px auto;
+  padding: 24px 24px 16px 24px;
+  background: #1a2233;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,188,212,0.18), 0 4px 16px rgba(0,0,0,0.12);
+  color: #e0f7fa;
+  border: 2px solid #00bcd4;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  align-items: center;
+}
+
+.create-content ion-item {
+  --background: transparent;
+  --color: #e0f7fa;
+  --highlight-background: #263043;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.create-content ion-label {
+  color: #00e5ff;
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+.create-content ion-input,
+.create-content ion-textarea {
+  color: #b2ebf2;
+  font-size: 1.05rem;
+}
+
+.create-content ion-button {
+  --background: #00bcd4;
+  --background-hover: #26c6da;
+  --color: #1a2233;
+  font-weight: 600;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+.create-content .saved-message {
+  margin-left: 12px;
+  color: #00e676;
+  font-weight: 500;
+}
