@@ -304,6 +304,7 @@ const contract = {
 ]
 }
 
+
 const fundraisers = await client.readContract({
   address: contract.address,
   abi: contract.abi,
@@ -318,4 +319,5 @@ const donators = await client.readContract({
   functionName: "getDonators",
   args: [0]
 });
+
 console.log(donators);

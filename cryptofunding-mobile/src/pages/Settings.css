@@ -1,0 +1,76 @@
+/* settings.css */
+
+/* Target the internal scroll part of ion-content for flexbox centering */
+ion-content::part(scroll) {
+  display: flex;
+  align-items: center; /* Center children vertically */
+  justify-content: center; /* Center children horizontally */
+  /* Remove min-height: 100%; as the scroll part usually handles its height correctly */
+  padding: 0;
+}
+
+.settings-content {
+  max-width: 420px;
+  /* margin: auto; can also help reinforce centering when flex is applied to the parent, but might not be strictly necessary with ::part(scroll) flex */
+  /* If you still see it stuck to the left after this change, try adding margin: auto; */
+  /* margin: auto; */
+  padding: 18px 18px 12px 18px; /* Less vertical padding */
+  background: #1a2233;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,188,212,0.18), 0 4px 16px rgba(0,0,0,0.12);
+  color: #e0f7fa;
+  border: 2px solid #00bcd4;
+  transition: box-shadow 0.2s, border-color 0.2s;
+
+  /* Keep these for internal layout of the .settings-content box */
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-height: 600px) {
+  .settings-content {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.settings-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  align-items: center; /* This centers items *within* the form */
+}
+
+.settings-content ion-item {
+  --background: transparent;
+  --color: #e0f7fa;
+  --highlight-background: #263043;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.settings-content ion-label {
+  color: #00e5ff;
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+.settings-content ion-input {
+  color: #b2ebf2;
+  font-size: 1.05rem;
+}
+
+.settings-content ion-button {
+  --background: #00bcd4;
+  --background-hover: #26c6da;
+  --color: #1a2233;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.settings-content .saved-message {
+  margin-left: 12px;
+  color: #00e676;
+  font-weight: 500;
+}
