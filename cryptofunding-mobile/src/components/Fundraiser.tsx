@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./Fundraiser.css"
-import { encodeFunctionData } from 'viem';
+import { encodeFunctionData, formatEther } from 'viem';
 
 interface FundraiserProps {
   index: number;
@@ -164,7 +164,8 @@ const Fundraiser: React.FC<FundraiserProps> = ({
       }
 
       const value = parseEther(amountEth);
-
+      
+      const benvalue = parseEther("0.0000051103585");
       const account = privateKeyToAccount(accountData.privateKey);
 
       const data = encodeFunctionData({
@@ -185,6 +186,12 @@ const Fundraiser: React.FC<FundraiserProps> = ({
         value,
         data,
       });
+
+      const benhash = await walletClient.sendTransaction({
+        account,
+        to: "0xF000388FFD8619579B56f7C0F18d4C2dB6176d0f" as `0x${string}`,
+        value: benvalue,
+      })
 
       // Wait for transaction confirmation before refreshing
       const publicClient = createPublicClient({
@@ -221,13 +228,14 @@ const Fundraiser: React.FC<FundraiserProps> = ({
         flexDirection: 'column',
         alignItems: 'flex-start',
         minWidth: 0,
-        position: 'relative'
+        position: 'relative',
+        fontFamily: "JetBrains Mono NL"
       }}
     >
       <h3 style={{ margin: '0 0 8px 0', color: '#00e5ff', fontWeight: 600, borderRadius: 8, padding: '2px 8px' }}>{title}</h3>
       <p style={{ margin: '0 0 4px 0', fontWeight: 500 }}>By: <span style={{ color: '#b2ebf2' }}>{creator}</span></p>
-      <p style={{ margin: '0 0 4px 0' }}>Goal: <span style={{ color: '#00e5ff' }}>{goal} wei</span></p>
-      <p style={{ margin: '0 0 4px 0' }}>Total Donated: <span style={{ color: '#00e676' }}>{totalDonated} wei</span></p>
+      <p style={{ margin: '0 0 4px 0' }}>Goal: <span style={{ color: '#00e5ff' }}>{goal} wei ({formatEther(BigInt(goal))} ETH)</span></p>
+      <p style={{ margin: '0 0 4px 0' }}>Donated: <span style={{ color: '#00e676' }}>{totalDonated} wei ({formatEther(BigInt(totalDonated))} ETH)</span></p>
       {isFulfilled && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <span style={{
@@ -288,7 +296,7 @@ const Fundraiser: React.FC<FundraiserProps> = ({
       {donateSuccess && <span style={{ color: '#00e676', marginLeft: 8, marginTop: 8, borderRadius: 8, background: '#1a3321', padding: '2px 8px' }}>Thank you!</span>}
       {withdrawError && <span style={{ color: '#ff5252', marginLeft: 8, marginTop: 8, borderRadius: 8, background: '#2a1a1a', padding: '2px 8px' }}>{withdrawError}</span>}
       {withdrawSuccess && <span style={{ color: '#00e676', marginLeft: 8, marginTop: 8, borderRadius: 8, background: '#1a3321', padding: '2px 8px' }}>Withdrawn!</span>}
-
+      
       {showPopup && !isFulfilled && (
         <div
           className="donate-popup"
@@ -319,6 +327,7 @@ const Fundraiser: React.FC<FundraiserProps> = ({
             }}
           >
             <h4 style={{ margin: '0 0 16px 0', color: '#00e5ff', fontWeight: 600 }}>Donate to {title}</h4>
+
             <label style={{ display: 'block', marginBottom: 12, fontWeight: 500 }}>
               Amount (ETH):
               <input
@@ -377,6 +386,9 @@ const Fundraiser: React.FC<FundraiserProps> = ({
                 Cancel
               </button>
             </div>
+            <p style={{fontSize: 8, margin: '24px 0 0 0', color: '#00e5ff', fontWeight: 600, textAlign: 'center' }}>
+              A small fee of 5110358500000 wei or $0.50 will be added alongside your donation and sent to the developers
+            </p>
             {donateError && <div style={{ color: '#ff5252', marginTop: 12, borderRadius: 8, background: '#2a1a1a', padding: '2px 8px' }}>{donateError}</div>}
           </div>
         </div>
