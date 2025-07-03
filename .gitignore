@@ -1,4 +1,4 @@
-cryptofunding-testscripts/node_modules/*
-cryptofunding-contracts/*.json
-cryptofunding-contracts/artifacts/
-cryptofunding-testscripts/.env
+testscripts/node_modules/*
+contracts/*.json
+contracts/artifacts/
+testscripts/.env
