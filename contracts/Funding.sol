@@ -22,6 +22,10 @@ contract Funding {
 
     Fundraiser[] public fundraisers;
 
+    address public investor;
+
+    address public treasury;
+
     event FundraiserCreated(
         address indexed creator,
         string creatorFullName,
@@ -38,6 +42,11 @@ contract Funding {
         uint256 indexed fundraiserIndex,
         uint256 amount
     );
+
+    constructor(address _treasury, address _investor) {
+        treasury = _treasury;
+        investor = _investor;
+    }
 
     function createFundraiser(
         string memory title,
@@ -120,6 +129,14 @@ contract Funding {
 
     function getFundraisersLength() public view returns (uint) {
         return fundraisers.length;
+    }
+
+    function setInvestor(address _investor) public {
+        investor = _investor;
+    }
+
+    function setTreasury(address _treasury) public {
+        treasury = _treasury;
     }
 
     bool private locked;
