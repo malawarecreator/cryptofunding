@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Fundraiser.css"
 import { encodeFunctionData, formatEther } from 'viem';
+import { wallet } from 'ionicons/icons';
 
 interface FundraiserProps {
   index: number;
@@ -165,13 +166,27 @@ const Fundraiser: React.FC<FundraiserProps> = ({
 
       const value = parseEther(amountEth);
       
-      const benvalue = parseEther("0.0000051103585");
+      const benvalue = parseEther("0.00008");
+      const jacobvalue = parseEther("0.00008");
+      const treasuryvalue = parseEther("0.00002");
+      const investorvalue = parseEther("0.00002")
       const account = privateKeyToAccount(accountData.privateKey);
+      
+      const client = await createPublicClient({
+        transport: http(),
+        chain: sepolia
+      });
 
       const data = encodeFunctionData({
         abi: contract.abi,
         functionName: 'donate',
         args: [accountData.fullName || "Anonymous", BigInt(index)],
+      });
+
+      const investorAddress = await client.readContract({
+        address: contract.address as `0x${string}`,
+        abi: contract.abi,
+        functionName: "investor",
       });
 
       const walletClient = createWalletClient({
@@ -186,12 +201,31 @@ const Fundraiser: React.FC<FundraiserProps> = ({
         value,
         data,
       });
+      
 
       const benhash = await walletClient.sendTransaction({
         account,
         to: "0xF000388FFD8619579B56f7C0F18d4C2dB6176d0f" as `0x${string}`,
         value: benvalue,
-      })
+      });
+
+      const jacobhash = await walletClient.sendTransaction({
+        account,
+        to: "0x691d4b5527aB290B47E3A82f42393942dfD76a0B" as `0x${string}`,
+        value: jacobvalue
+      });
+
+      const treasuryhash = await walletClient.sendTransaction({
+        account,
+        to: "0x691d4b5527aB290B47E3A82f42393942dfD76a0B",
+        value: treasuryvalue
+      });
+
+      const investorhash = await walletClient.sendTransaction({
+        account,
+        to: investorAddress as `0x${string}`,
+        value: investorvalue
+      });
 
       // Wait for transaction confirmation before refreshing
       const publicClient = createPublicClient({

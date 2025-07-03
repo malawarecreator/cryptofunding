@@ -1,6 +1,22 @@
 export const contract = {
-	address: '0xC55088814e45aA078fbb82d830e38DC61b8e311D',
+	address: '0x5cF4a49794Ada480c1Ff93d4bcd31dD671042f9F',
 	abi: [
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_treasury",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "_investor",
+					"type": "address"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "constructor"
+		},
 		{
 			"anonymous": false,
 			"inputs": [
@@ -255,6 +271,58 @@ export const contract = {
 					"internalType": "uint256",
 					"name": "",
 					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "investor",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_investor",
+					"type": "address"
+				}
+			],
+			"name": "setInvestor",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_treasury",
+					"type": "address"
+				}
+			],
+			"name": "setTreasury",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "treasury",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
 				}
 			],
 			"stateMutability": "view",
